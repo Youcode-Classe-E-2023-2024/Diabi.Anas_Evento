@@ -12,7 +12,7 @@ class CategoriesController extends Controller
 {
     public function index()
     {
-    $black_hover = 'Manage Categories';
+    $black_hover = 'Manage categories';
         $categories = Categorie::All();
             
 

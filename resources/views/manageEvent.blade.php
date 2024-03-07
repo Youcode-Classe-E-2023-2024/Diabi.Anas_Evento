@@ -2,62 +2,120 @@
 
 @section('content')
 
-<section class="flex items-center justify-center flex-col  h-full" style="background:url('eventwlp.png') no-repeat center center fixed; background-size: cover">
-    <div class="  flex  justify-center items-center  ">
-        <div class="grid  m-auto  ">
-            <div class="mb-12  md:mt-12 lg:mt-0 lg:mb-0">
-                <div class="container  mx-auto p-8">
+<section class="flex items-center justify-center flex-col h-full"
+    style="background:url('eventwlp.png') no-repeat center center fixed; background-size: cover">
+    <div class="flex justify-center items-center">
+        <div class="grid m-auto">
+            <div class="mb-12 md:mt-12 lg:mt-0 lg:mb-0">
+                <div class="container mx-auto p-8">
                     <div class="bg-white p-6 rounded-md shadow-md">
                         <h1 class="text-3xl font-semibold mb-6">Créer un événement</h1>
-                        @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                        @if (session('success'))
+                            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
+                                role="alert">
+                                <strong class="font-bold">Success!</strong>
+                                <span class="block sm:inline">{{ session('success') }}</span>
+                            </div>
+                        @endif
                         <form action="{{ route('createevent') }}" method="post" class="max-w-md mx-auto">
                             @csrf
                             <div class="mb-4">
-                                <label for="name" class="block text-gray-600 text-sm font-medium">Title</label>
-                                <input type="text" id="name" name="title" class="mt-1 p-2 w-full border rounded-md">
+                                <label for="name"
+                                    class="block text-gray-600 text-sm font-medium">Title</label>
+                                <input type="text" id="name" name="title"
+                                    class="mt-1 p-2 w-full border rounded-md">
+                                @error('title')
+                                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="mb-4">
-                                <label for="description" class="block text-gray-600 text-sm font-medium">Description</label>
-                                <textarea id="description" name="description" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500 resize-none" rows="4"></textarea>
-                            </div>
-                            
-
-                            <div class="grid grid-cols-2 gap-4 mb-4">
-                                <div>
-                                    <label for="startDate" class="block text-gray-600 text-sm font-medium">Start Date</label>
-                                    <input type="date" name="startDate" id="startDate" class="mt-1 p-2 w-full border rounded-md">
-                                </div>
-
-                           
-
-                                <div>
-                                    <label for="endDate" class="block text-gray-600 text-sm font-medium">End Date</label>
-                                    <input type="date" name="endDate" id="endDate" class="mt-1 p-2 w-full border rounded-md">
-                                </div>
-
-                                
+                                <label for="description"
+                                    class="block text-gray-600 text-sm font-medium">Description</label>
+                                <textarea id="description" name="description"
+                                    class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500 resize-none"
+                                    rows="4"></textarea>
+                                @error('description')
+                                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="grid grid-cols-2 gap-4 mb-4">
                                 <div>
-                                    <label for="guestCapacity" class="block text-gray-600 text-sm font-medium">Event Guest Capacity</label>
-                                    <input type="number" name="guestCapacity" id="guestCapacity" class="mt-1 p-2 w-full border rounded-md">
+                                    <label for="startDate"
+                                        class="block text-gray-600 text-sm font-medium">Start
+                                        Date</label>
+                                    <input type="date" name="startDate" id="startDate"
+                                        class="mt-1 p-2 w-full border rounded-md">
+                                    @error('startDate')
+                                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                
-                     
+
+                                <div>
+                                    <label for="endDate"
+                                        class="block text-gray-600 text-sm font-medium">End
+                                        Date</label>
+                                    <input type="date" name="endDate" id="endDate"
+                                        class="mt-1 p-2 w-full border rounded-md">
+                                    @error('endDate')
+                                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label for="guestCapacity"
+                                        class="block text-gray-600 text-sm font-medium">Event
+                                        Guest Capacity</label>
+                                    <input type="number" name="guestCapacity" id="guestCapacity"
+                                        class="mt-1 p-2 w-full border rounded-md">
+                                    @error('guestCapacity')
+                                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div>
+                                    <label for="category"
+                                        class="block text-gray-600 text-sm font-medium">Category</label>
+                                    <select id="category" name="category"
+                                        class="mt-1 p-2 w-full border rounded-md">
+                                        <option value="">Select Category</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('category')
+                                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label for="name"
+                                        class="block text-gray-600 text-sm font-medium">Event
+                                        Place</label>
+                                    <input type="text" id="name" name="place"
+                                        class="mt-1 p-2 w-full border rounded-md">
+                                    @error('place')
+                                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mb-4">
+                                    <label for="price"
+                                        class="block text-gray-600 text-sm font-medium">Price</label>
+                                    <input type="text" name="price" id="price" value="0"
+                                        class="mt-1 p-2 w-full border rounded-md">
+                                    @error('price')
+                                        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
 
                             <div class="flex items-center justify-between">
-                                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Submit</button>
+                                <button type="submit"
+                                    class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Submit</button>
                             </div>
                         </form>
                     </div>
