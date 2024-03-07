@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained('users', 'id')->cascadeOnDelete()->cascadeOnUpdate();            $table->string('title')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained('users', 'id')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->string('place')->nullable();
             $table->string('price')->nullable();
