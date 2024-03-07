@@ -54,7 +54,7 @@
         @if(Auth::user()->role == 'Administrateur')
             <!-- Ces éléments ne seront affichés que pour les Administrateurs -->
             <li class="{{ $black_hover == 'Manage categories' ? 'black_hover': '' }}">
-                <a href="#">
+                <a href="{{ route('managecategorie') }}">
                     <span class="icon">
                         <ion-icon name="grid-outline"></ion-icon>
                     </span>

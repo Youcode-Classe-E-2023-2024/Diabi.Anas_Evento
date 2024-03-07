@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\OrganizerSubController;
@@ -24,6 +25,9 @@ Route::get('/', function () {
 
 /* main route */
 Route::get('/main', [MainController::class, 'index'])->name('main')->middleware('auth');
+Route::get('/managecategorie', [CategoriesController::class, 'index'])->name('managecategorie')->middleware('auth');
+Route::post('/categories', [CategoriesController::class, 'store'])->name('categories.store')->middleware('auth');
+Route::delete('/categories.destroySelected', [CategoriesController::class, 'destroy'])->name('categories.destroySelected')->middleware('auth');
 
 /* auth route */
 Route::get('/register', [AuthController::class, 'register'])->name('register')->middleware('guest');
@@ -65,6 +69,7 @@ Route::get('/manageEvent',function (){
     $black_hover = 'Manage events';
     return view('manageEvent', compact('black_hover'));
 })->name('manageEvent');
+
 
 
 
