@@ -7,6 +7,7 @@ use App\Http\Controllers\EventsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\OrganizerSubController;
+use App\Http\Controllers\AdminUserController;
 
 
 /*
@@ -28,6 +29,8 @@ Route::get('/', function () {
 Route::get('/main', [MainController::class, 'index'])->name('main')->middleware('auth');
 Route::get('/managecategorie', [CategoriesController::class, 'index'])->name('managecategorie')->middleware('auth');
 Route::get('/manageEvent', [EventsController::class, 'index'])->name('manageEvent')->middleware('auth');
+Route::post('/updateevent', [EventsController::class, 'update'])->name('updateevent')->middleware('auth');
+Route::get('/reserve', [EventsController::class, 'reserve'])->name('reserve')->middleware('auth');
 Route::post('/categories', [CategoriesController::class, 'store'])->name('categories.store')->middleware('auth');
 Route::delete('/categories.destroySelected', [CategoriesController::class, 'destroy'])->name('categories.destroySelected')->middleware('auth');
 
@@ -62,11 +65,15 @@ Route::get('/subscribe', function () {
 })->name('subscribe');
 
 
-Route::get('/reserve', function () {
-    $black_hover = 'Reserve a ticket';
-    return view('reserve', compact('black_hover'));
-})->name('reserve');
-
+/**
+ * Admon Root
+ * 
+ */
+Route::get('/manageUsers', [AdminUserController::class, 'index'])->name('manageUsers')->middleware('auth');
+Route::delete('/manageUsers/{userId}/delete', [AdminUserController::class, 'delete'])->name('manageUsers.delete')->middleware('auth');
+Route::post('/manageUsers/{userId}/toggleBanStatus', [AdminUserController::class, 'toggleBanStatus'])->name('toggleBanStatus')->middleware('auth');
+Route::put('/manageUsers/{userId}/updateRole', [AdminUserController::class, 'updateRole'])->name('manageUsers.updateRole');
+Route::get('/manageUsers/{userId}/editRole', [AdminUserController::class, 'editRole'])->name('manageUsers.editRole');
 
 
 
@@ -76,6 +83,10 @@ Route::get('/reservation',function (){
     $black_hover='Reservations';
     return view('reservation',compact('black_hover'));
 })->name('reservation');
+Route::get('/details',function (){
+    $black_hover='Reservations';
+    return view('eventDetails',compact('black_hover'));
+})->name('eventDetails');
 
 
 /* Event Route:*/
