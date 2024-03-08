@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('place')->nullable();
             $table->string('price')->nullable();
-            $table->string('category')->nullable();
+            $table->string('categorie_id')->nullable();
             $table->integer('available_places')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
