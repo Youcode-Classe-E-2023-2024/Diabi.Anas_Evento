@@ -97,4 +97,7 @@ public function update(Request $request)
     // Add a success message to the session using with()
     return redirect()->route('manageEvent')->with('success', 'Event updated successfully!');
 }
+
+
+
 }

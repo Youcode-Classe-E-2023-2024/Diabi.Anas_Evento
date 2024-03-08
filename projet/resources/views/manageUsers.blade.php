@@ -50,12 +50,12 @@
                         @if ($user->is_banned === 1)
                             <form action="{{ route('toggleBanStatus', $user->id) }}" method="POST">
                                 @csrf
-                                <button type="submit">Unban</button>
+                                <button  class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" type="submit">Unban</button>
                             </form>
                         @elseif ($user->is_banned === 0)
                             <form action="{{ route('toggleBanStatus', $user->id) }}" method="POST">
                                 @csrf
-                                <button type="submit">Ban</button>
+                                <button  class="bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" type="submit">Ban</button>
                             </form>
                         @endif
                     </td>

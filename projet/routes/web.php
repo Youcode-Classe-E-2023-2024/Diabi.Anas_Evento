@@ -26,7 +26,7 @@ Route::get('/', function () {
 });
 
 /* main route */
-Route::get('/main', [MainController::class, 'index'])->name('main')->middleware('auth');
+Route::get('/main', [MainController::class, 'index'])->name('main');
 Route::get('/managecategorie', [CategoriesController::class, 'index'])->name('managecategorie')->middleware('auth');
 Route::get('/manageEvent', [EventsController::class, 'index'])->name('manageEvent')->middleware('auth');
 Route::post('/updateevent', [EventsController::class, 'update'])->name('updateevent')->middleware('auth');
