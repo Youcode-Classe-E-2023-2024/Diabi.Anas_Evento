@@ -8,7 +8,11 @@
                 <span class="title">EVENTO</span>
             </a>
         </li>
-
+        @php
+        $userRole = Auth::user()->role;
+        @endphp
+    
+   
         <li class="{{ $black_hover == 'home' ? 'black_hover': '' }}">
             <a href="{{ route('main') }}">
                 <span class="icon">
@@ -27,7 +31,7 @@
             </a>
         </li>
 
-        @if(Auth::user()->role == 'Organisateur' || Auth::user()->role == 'Administrateur')
+        @if($userRole->id === 1 || $userRole->id === 2)
             <!-- Ces éléments ne seront affichés que pour les Organisateurs et les Administrateurs -->
             <li class="{{ $black_hover == 'Be an organizer' ? 'black_hover': '' }}">
                 <a href="{{ route('subscribe') }}">
@@ -51,8 +55,9 @@
 
         @endif
 
-        @if(Auth::user()->role == 'Administrateur')
-            <!-- Ces éléments ne seront affichés que pour les Administrateurs -->
+        @if($userRole->id === 1)
+        
+        <!-- Ces éléments ne seront affichés que pour les Administrateurs -->
             <li class="{{ $black_hover == 'Manage categories' ? 'black_hover': '' }}">
                 <a href="{{ route('managecategorie') }}">
                     <span class="icon">
@@ -68,6 +73,14 @@
                         <ion-icon name="people-outline"></ion-icon>
                     </span>
                     <span class="title">Manage users</span>
+                </a>
+            </li>
+            <li class="{{ $black_hover == 'Dashboard' ? 'black_hover': '' }}">
+                <a href="#">
+                    <span class="icon">
+                        <ion-icon name=""></ion-icon>
+                    </span>
+                    <span class="title">Dashboard</span>
                 </a>
             </li>
 

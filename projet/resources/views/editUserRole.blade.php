@@ -12,7 +12,7 @@
                 <label for="role_id" class="block text-gray-600 text-sm font-medium">Select Role</label>
                 <select id="role_id" name="role_id" class="mt-1 p-2 w-full border rounded-md">
                     @foreach ($roles as $role)
-                        <option value="{{ $role->id }}" {{ $user->roles->contains($role) ? 'selected' : '' }}>
+                        <option value="{{ $role->id }}" {{ $user->role->id == $role->id ? 'selected' : '' }}>
                             {{ $role->name }}
                         </option>
                     @endforeach

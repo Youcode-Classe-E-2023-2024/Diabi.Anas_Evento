@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -36,16 +37,16 @@ class AdminUserController extends Controller
         $isBanned = !$user->is_banned; // Toggle the current status
 
         $user->update(['is_banned' => $isBanned]); // Update the is_banned column based on the toggled status
-    
+
         $message = $isBanned ? 'User banned successfully' : 'User unbanned successfully';
-        
+
         return redirect()->route('manageUsers')->with('success', $message);
-    } 
-    
+    }
+
     public function editRole($userId)
     {
 
-        $user = User::with('roles')->findOrFail($userId);
+        $user = User::with('role')->findOrFail($userId);
         $roles = Role::all();
         $black_hover = 'Manage users';
 
@@ -60,10 +61,9 @@ class AdminUserController extends Controller
             'role_id' => 'required|exists:roles,id',
         ]);
 
-        $user->roles()->sync([$request->input('role_id')]);
+        $user->role_id = $request->input('role_id');
+        $user->save();
 
         return redirect()->route('manageUsers')->with('success', 'User role updated successfully');
     }
-
-
 }
