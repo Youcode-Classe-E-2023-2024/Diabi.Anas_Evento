@@ -10,7 +10,7 @@ class Events extends Model
 {
     use HasFactory;
     protected $table = 'events';
-    protected $primaryKey = 'event_id';
+    protected $primaryKey = 'id';
 
     public function category()
     {

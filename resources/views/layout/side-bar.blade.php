@@ -63,7 +63,7 @@
             </li>
 
             <li class="{{ $black_hover == 'Manage users' ? 'black_hover': '' }}">
-                <a href="#">
+                <a href="{{ route('manageUsers') }}">
                     <span class="icon">
                         <ion-icon name="people-outline"></ion-icon>
                     </span>
