@@ -124,5 +124,46 @@
         </div>
     </div>
 </section>
+<section class="h-screen">
+    <div class="m-8">
+        <h2 class="text-2xl font-bold mb-4">Events</h2>
+        <div class="overflow-hidden border border-gray-300 rounded-lg">
+            <table class="w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Place</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Available Places</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ctegorie</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Start Date</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">End Date</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach($events as $event)
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $event->title }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $event->description }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $event->place }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $event->price }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $event->available_places }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap"> {{ \App\Models\Categorie::find($event->categorie_id)->name }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $event->start_date }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $event->end_date }}</td>
+                       <td>
+                        <div class="flex">
+                        <button type="button"  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Update</button>
+                        <button type="button"  class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Delete</button>
+                    </div> </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
 
 @endsection
+
