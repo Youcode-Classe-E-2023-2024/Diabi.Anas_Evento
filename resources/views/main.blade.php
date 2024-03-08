@@ -8,6 +8,8 @@ background-color: #0ea45e;
 border-radius: 10px;
 padding:4px 6px; 
 }
+.shadow{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;}
 
 </style>
     <!-- component -->
@@ -36,13 +38,13 @@ padding:4px 6px;
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-12 h-screen ">
         @forelse ($events as $event)
             <div
-                class="w-full    m-auto max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                class="w-full shadow   m-auto max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
                 <a href="#">
                     <img class="p-8 rounded-t-lg" src="/docs/images/products/apple-watch.png" alt="product image" />
                 </a>
                 <div class="px-5 pb-5">
                     <a href="#">
-                        <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ $event->title }}
+                        <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-black">{{ $event->title }}
                         </h5>
                     </a>
                     <div class="flex items-center justify-between mt-2.5 mb-5">
@@ -83,10 +85,14 @@ padding:4px 6px;
                         
                     </div>
                     <div class="flex items-center justify-between">
-                        <span class="text-3xl font-bold text-gray-900 dark:text-white">$ {{ $event->price }}</span>
-                        <a href="#"
+                        <span class="text-3xl font-bold text-gray-900 dark:text-black">$ {{ $event->price }}</span>
+                        @if($event->available_places == 0)
+                        <button disabled
+                            class="text-white bg-gray-400 cursor-not-allowed focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600">Full</button>
+                    @else
+                        <a 
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Reserve</a>
-                    </div>
+                    @endif </div>
                 </div>
             </div>
 
