@@ -38,7 +38,7 @@
                     <td class="border px-4 py-2">{{ $user->id }}</td>
                     <td class="border px-4 py-2">{{ $user->name }}</td>
                     <td class="border px-4 py-2">{{ $user->email }}</td>
-                    <td class="border px-4 py-2">{{ $user->role }}</td>
+                    <td class="border px-4 py-2"> {{ \App\Models\role::find($user->role_id)->name }}</td>
                     <td class="border px-4 py-2">
                         <form action="{{ route('manageUsers.delete', $user->id) }}" method="POST">
                             @csrf
