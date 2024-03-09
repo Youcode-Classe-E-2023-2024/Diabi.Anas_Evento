@@ -22,6 +22,15 @@ public function index(){
     return view('manageEvent')->with($data);
 
 }
+public function details($event_id){
+
+    $black_hover = 'home';
+    $event = Events::findOrFail($event_id);
+    $categories = Categorie::All();
+    $data = compact('categories','black_hover','event');
+    return view('eventDetails')->with($data);
+
+}
 public function reserve(){
 
     $black_hover = 'Reserve a ticket';

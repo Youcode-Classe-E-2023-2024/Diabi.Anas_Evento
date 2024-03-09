@@ -1,6 +1,12 @@
 @extends('layout.layout')
 @section('content')
     <style>
+         .event-description {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #333;
+        margin-top: 10px;
+    }
         img {
             display: block;
             height: auto;
@@ -73,39 +79,61 @@
                     <div class="right-side-pro-detail pb-3 pe-3 ps-3 m-0">
                         <div class="row">
                             <div class="col-lg-12 d-flex justify-content-between">
-                                <!-- Organizer and Publish date -->
+                               
                             </div>
-                            <div class="col-lg-12">
-                                <!-- Event name and Ratings -->
+                            
+                            <div class="m-6 col-lg-12">
+                               {{ $event->title}}
                             </div>
-                            <div class="col-lg-12 pb-0 mb-0">
-                                <p class="card-price mb-0">Rs.<!-- Event ticket price --></p>
+                            <div class="col-lg-12  pb-0 mb-5">
+                                <p class="card-price mb-0">$.{{$event->price}}</p>
                                 <hr>
                             </div>
                             <div class="col-lg-12">
-                                <!-- Event description -->
+                                <h5 class="text-primary">Event Details</h5>
+                                <p class="event-description">{{$event->description}}</p>
                                 <hr class="m-0 pt-1 mt-2">
                             </div>
                             <div class="col-lg-12 mt-2">
-                                <!-- Location -->
+                                <strong>Location : <i class="fa fa-map-marker-alt text-primary"></i>
+                                </strong>
+                                {{$event->place}}
                             </div>
                             <div class="col-lg-12">
-                                <!-- Start date and time -->
+                                {{$event->price}}
                             </div>
                             <div class="col-lg-12">
-                                <!-- End date and time -->
+                                <strong>Starting at : </strong>
+                                {{ $event->start_date }}
                             </div>
                             <div class="col-lg-12 mt-2">
-                                <!-- Total and Available tickets -->
+                                <strong>Available Tickets :
+                                </strong>
+                                {{$event->available_places}}
                             </div>
                             <div class="col-lg-12 mt-3">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <!-- Buy ticket form or messages based on conditions -->
+                                        <button type="submit" class="btn text-black bg-gray-200 btn-success w-100">Buy Ticket</button>
                                     </div>
                                     <div class="container mt-4">
                                         <h5>Share it:</h5>
-                                        <!-- Social media share buttons -->
+                                        <div
+                                            class="bg-dark rounded mb-2 p-1 mt-2 d-flex align-items-center justify-content-around">
+                                            
+                                            <a class="btn btn-square mx-1 text-white border m-2" href=""><i
+                                                    class="fab fa-facebook-f"></i></a>
+                                            <a class="btn btn-square mx-1 text-white border m-2" href=""><i
+                                                    class="fab fa-instagram"></i></a>
+                                            <a class="btn btn-square mx-1 text-white border m-2" href=""><i
+                                                    class="fab fa-twitter"></i></a>
+                                            <a class="btn btn-square mx-1 text-white border m-2" href=""><i
+                                                    class="fab fa-youtube"></i></a>
+                                            <a class="btn btn-square mx-1 text-white border m-2" href=""><i
+                                                    class="fab fa-linkedin"></i></a>
+                                            <a class="btn btn-square mx-1 text-white border m-2" href=""><i
+                                                    class="fab fa-pinterest"></i></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

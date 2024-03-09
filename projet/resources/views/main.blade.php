@@ -39,7 +39,7 @@ padding:4px 6px;
         @forelse ($events as $event)
             <div
                 class="w-full shadow   m-auto max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
-                <a href="#">
+                <a href="{{ url('events')}}/{{$event->id}}">
                     <img class="p-8 rounded-t-lg" src="/docs/images/products/apple-watch.png" alt="product image" />
                 </a>
                 <div class="px-5 pb-5">
