@@ -8,6 +8,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\OrganizerSubController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\StatisticsController;
+
 
 
 /*
@@ -30,7 +32,8 @@ Route::get('/main', [MainController::class, 'index'])->name('main');
 Route::get('/managecategorie', [CategoriesController::class, 'index'])->name('managecategorie')->middleware('auth');
 Route::get('/manageEvent', [EventsController::class, 'index'])->name('manageEvent')->middleware('auth');
 Route::post('/updateevent', [EventsController::class, 'update'])->name('updateevent')->middleware('auth');
-Route::get('/reserve', [EventsController::class, 'reserve'])->name('reserve')->middleware('auth');
+Route::get('events/{event_id}',[EventsController::class, 'details'])->name('event.details');
+Route::get('/reserve', [EventsController::class, 'reserve'])->name('reserve');
 Route::post('/categories', [CategoriesController::class, 'store'])->name('categories.store')->middleware('auth');
 Route::delete('/categories.destroySelected', [CategoriesController::class, 'destroy'])->name('categories.destroySelected')->middleware('auth');
 
@@ -76,6 +79,12 @@ Route::put('/manageUsers/{userId}/updateRole', [AdminUserController::class, 'upd
 Route::get('/manageUsers/{userId}/editRole', [AdminUserController::class, 'editRole'])->name('manageUsers.editRole');
 
 
+Route::get('statistics',function (){
+    $black_hover = 'statistics';
+    return view('statistics',compact('black_hover'));
+})->name('statistics');
+
+Route::get('statistics', [StatisticsController::class, 'index'])->name('statistics');
 
 
 
@@ -83,10 +92,6 @@ Route::get('/reservation',function (){
     $black_hover='Reservations';
     return view('reservation',compact('black_hover'));
 })->name('reservation');
-Route::get('/details',function (){
-    $black_hover='Reservations';
-    return view('eventDetails',compact('black_hover'));
-})->name('eventDetails');
 
 
 /* Event Route:*/
