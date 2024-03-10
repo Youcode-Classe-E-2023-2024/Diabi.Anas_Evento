@@ -21,7 +21,7 @@ class EventsController extends Controller
         $user = Auth::user();
         $userid = $user->id;
         $userevents = Events::where('user_id', '=', $userid)->get();
-        $events = Events::where('status', '=', 'archived')->get();
+        $events = Events::all();
         $categories = Categorie::All();
         $data = compact('categories', 'black_hover', 'events', 'user', 'userevents');
         return view('manageEvent')->with($data);

@@ -16,11 +16,11 @@ padding:4px 6px;
     @forelse ($events as $event)
         <div
             class="w-full shadow   m-auto max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
-            <a href="#">
+            <a href="{{ url('events')}}/{{$event->id}}">
                 <img class="p-8 rounded-t-lg" src="/docs/images/products/apple-watch.png" alt="product image" />
             </a>
             <div class="px-5 pb-5">
-                <a href="#">
+                <a href="{{ url('events')}}/{{$event->id}}">
                     <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-black">{{ $event->title }}
                     </h5>
                 </a>
@@ -62,12 +62,12 @@ padding:4px 6px;
                     
                 </div>
                 <div class="flex items-center justify-between">
-                    <span class="text-3xl font-bold text-gray-900 dark:text-black">$ {{ $event->price }}</span>
+                    <span class="text-3xl font-bold text-gray-900 dark:text-black">$    {{ $event->price }}</span>
                     @if($event->available_places == 0)
                     <button disabled
                         class="text-white bg-gray-400 cursor-not-allowed focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600">Full</button>
                 @else
-                    <a 
+                    <a href="{{ url('events')}}/{{$event->id}}"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Reserve</a>
                 @endif </div>
             </div>
