@@ -11,8 +11,65 @@ padding:4px 6px;
 .shadow{
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;}
 
+.search-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Styling for the search input */
+.search-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Styling for the search button */
+.search-button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover effect for the search input and button */
+.search-input:hover,
+.search-button:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Animation for the search input and button */
+.search-input,
+.search-button {
+    transform: translateY(0);
+    animation: translateYAnimation 1s ease-in-out infinite alternate;
+}
+
+@keyframes translateYAnimation {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-5px);
+    }
+}
 </style>
+
+<form action="{{ route('searchEvent') }}" method="GET" class="search-form">
+        <input type="text" name="search" placeholder="Rechercher par titre" class="search-input">
+        <button type="submit" class="search-button">Rechercher</button>
+    </form>
+
 <section class="grid grid-cols-1 p-12 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12 h-screen ">
+    
     @forelse ($events as $event)
         <div
             class="w-full shadow   m-auto max-w-sm bg-white border border-gray-200 rounded-lg shadow ">

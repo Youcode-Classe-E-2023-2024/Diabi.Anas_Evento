@@ -161,4 +161,17 @@ class EventsController extends Controller
 
         return redirect()->route('manageEvents')->with('deleted', 'Event has been Published.');
     }
+    public function searchEvent(Request $request)
+{
+    $search = $request->input('search');
+    
+    $black_hover = 'Reserve a ticket';
+
+
+    
+    // Utilisez la méthode where pour filtrer les événements par titre
+    $events = Events::where('title', 'like', '%' . $search . '%')->get();
+
+    return view('reserve', compact('black_hover', 'events'));
+}
 }

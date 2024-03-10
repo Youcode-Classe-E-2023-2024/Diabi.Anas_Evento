@@ -101,3 +101,4 @@ Route::post('/update/{event_id}/event', [EventsController::class, 'update'])->na
 Route::get('events/{event_id}',[EventsController::class, 'details'])->name('event.details');
 Route::get('drop/{event_id}/event',[EventsController::class, 'delete'])->name('drop.event');
 Route::get('reserveTicket/{event_id}',[EventsController::class, 'reserveTickets'])->name('reserveTicket');
+Route::get('/search',[EventsController::class,'searchEvent'])->name('searchEvent');
