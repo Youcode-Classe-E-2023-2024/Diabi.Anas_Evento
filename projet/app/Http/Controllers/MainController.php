@@ -14,10 +14,7 @@ class MainController extends Controller
     {
 
         $black_hover = 'home';
-        $events = Events::where('start_date', '>=', now())
-            ->orderBy('start_date', 'asc')
-            ->get();
-
+        $events = Events::where('status', '=', 'published')->get();
 
         $data = compact('events', 'black_hover');
         return view('main')->with($data);

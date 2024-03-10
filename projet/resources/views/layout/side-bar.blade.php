@@ -10,8 +10,16 @@
             </a>
         </li>
 
+        @php
+        if (Auth::check()) {
+            $user = Auth::user();
+        }
+    @endphp
+    <h6 class="">Welcom :             {{ $user->name }}
+    </h6>
+    <h6 >Role :                         {{ \App\Models\role::find($user->role_id)->name }}
 
-
+    </h6>
         <li class="{{ $black_hover == 'home' ? 'black_hover' : '' }}">
             <a href="{{ route('main') }}">
                 <span class="icons">
@@ -43,7 +51,15 @@
                     <span class="title">Be an organizer</span>
                 </a>
             </li>
+            <li class="{{ $black_hover == 'Manage events' ? 'black_hover' : '' }}">
+                <a href="{{ route('manageEvents') }}">
+                    <span class="icona">
+                    </span>
+                    <span class="title">Manage Events</span>
+                </a>
+            </li>
             <!-- Rest of the elements -->
+           
         @endif
 
         @if (Auth::check() && $userRole && $userRole->id === 1)
@@ -57,7 +73,7 @@
             </li>
             <!-- Rest of the elements -->
 
-
+            
 
             <li class="{{ $black_hover == 'Manage users' ? 'black_hover' : '' }}">
                 <a href="{{ route('manageUsers') }}">
@@ -66,10 +82,9 @@
                     <span class="title">Manage users</span>
                 </a>
             </li>
-            <li class="{{ $black_hover == 'Dashboard' ? 'black_hover' : '' }}">
-                <a href="#">
+            <li class="{{ $black_hover == 'statistics' ? 'black_hover' : '' }}">
+                <a href="{{ route('statistics') }}">
                     <span class="icona">
-                        <ion-icon name=""></ion-icon>
                     </span>
                     <span class="title">Dashboard</span>
                 </a>
@@ -92,26 +107,21 @@
                 <a href="{{ route('logout') }}">
                     <form action="{{ route('logout') }}" method="POST" class="icona">
                         @csrf
-                        <button type="submit">
-                        </button>
+                        <button type="submit" class="title bg-transparent border-0 text-white">Sign Out</button>
                     </form>
-                    <span class="title">Sign Out</span>
                 </a>
             </li>
         @else
             <!-- User is not logged in -->
             <li class="{{ $black_hover == 'Login/Register' ? 'black_hover' : '' }}">
                 <a href="{{ route('login') }}">
-                    <span class="icona">
-                    </span>
+                   
                     <span class="title">Login</span>
                 </a>
             </li>
             <li class="{{ $black_hover == 'Login/Register' ? 'black_hover' : '' }}">
                 <a href="{{ route('register') }}">
-                    <span class="icona">
 
-                    </span>
                     <span class="title">Register</span>
                 </a>
             </li>
