@@ -30,9 +30,6 @@ Route::get('/', function () {
 /* main route */
 Route::get('/main', [MainController::class, 'index'])->name('main');
 Route::get('/managecategorie', [CategoriesController::class, 'index'])->name('managecategorie')->middleware('auth');
-Route::get('/manageEvent', [EventsController::class, 'index'])->name('manageEvent')->middleware('auth');
-Route::post('/updateevent', [EventsController::class, 'update'])->name('updateevent')->middleware('auth');
-Route::get('events/{event_id}',[EventsController::class, 'details'])->name('event.details');
 Route::get('/reserve', [EventsController::class, 'reserve'])->name('reserve');
 Route::post('/categories', [CategoriesController::class, 'store'])->name('categories.store')->middleware('auth');
 Route::delete('/categories.destroySelected', [CategoriesController::class, 'destroy'])->name('categories.destroySelected')->middleware('auth');
@@ -46,7 +43,7 @@ Route::get('/login', [AuthController::class, 'login'])->name('login')->middlewar
 
 Route::post('/login', [AuthController::class, 'authenticate'])->name('login.authenticate')->middleware('guest');
 
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::delete('/user/delete', [AuthController::class, 'destroy'])->name('user.delete');
 
@@ -97,3 +94,9 @@ Route::get('/reservation',function (){
 /* Event Route:*/
 
 Route::post('/create.event', [EventsController::class, 'create'])->name('createevent');
+Route::get('/manageEvents', [EventsController::class, 'index'])->name('manageEvents')->middleware('auth');
+Route::get('/event/{event_id}', [EventsController::class, 'edite'])->name('eventEdite')->middleware('auth');
+Route::get('/publish.event/{event_id}', [EventsController::class, 'publish'])->name('publishevent')->middleware('auth');
+Route::post('/update/{event_id}/event', [EventsController::class, 'update'])->name('update.event')->middleware('auth');
+Route::get('events/{event_id}',[EventsController::class, 'details'])->name('event.details');
+Route::get('drop/{event_id}/event',[EventsController::class, 'delete'])->name('drop.event');
