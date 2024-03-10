@@ -185,22 +185,22 @@
                                     <div class="flex">
                                         <a href="{{ url('event') }}/{{ $event->id }}">
                                             <button type="button"
-                                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Update</button>
+                                                class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">Update</button>
                                         </a>
-                                        @if($event->status = 'archived')
+                                        @if($event->status == 'archived')
                                         <a href="{{ url('publish.event') }}/{{ $event->id }}">
                                             <button type="button"
-                                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">publish</button>
+                                                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">publish</button>
                                         </a>
                                         @else
                                         <a href="{{ url('publish.event') }}/{{ $event->id }}">
                                             <button type="button"
-                                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">archive</button>
+                                                class="bg-cyan-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">archive</button>
                                         </a>
                                         @endif
                                         <a href="{{route('drop.event', $event->id)}}">
                                         <button type="button"
-                                            class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Delete</button>
+                                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
                                         </a>
                                         </div>
                             </tr>
