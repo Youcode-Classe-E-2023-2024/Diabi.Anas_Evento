@@ -47,6 +47,22 @@ class EventsController extends Controller
         $data = compact('events', 'black_hover');
         return view('reserve')->with($data);
     }
+    public function reserveTickets(Request $request, $eventId) {
+
+        $event = Events::findOrFail($eventId);
+        
+        $numberOfTickets = $request->numberOfTickets;
+        // Check if there are enough available places
+        if ($event->available_places >= $numberOfTickets) {
+            // Reduce the available places
+            $event->available_places -= $numberOfTickets;
+            $event->save();
+                
+             return redirect()->back()->with('success', 'Ticket Reserved successfully!');
+        } else {
+            return "Not enough available places to reserve tickets.";
+        }
+    }
 
     public function create(Request $request)
     {

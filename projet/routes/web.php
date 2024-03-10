@@ -100,3 +100,4 @@ Route::get('/publish.event/{event_id}', [EventsController::class, 'publish'])->n
 Route::post('/update/{event_id}/event', [EventsController::class, 'update'])->name('update.event')->middleware('auth');
 Route::get('events/{event_id}',[EventsController::class, 'details'])->name('event.details');
 Route::get('drop/{event_id}/event',[EventsController::class, 'delete'])->name('drop.event');
+Route::get('reserveTicket/{event_id}',[EventsController::class, 'reserveTickets'])->name('reserveTicket');

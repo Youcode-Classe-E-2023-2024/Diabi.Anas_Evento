@@ -78,9 +78,14 @@
                 <div class="col-md-7">
                     <div class="right-side-pro-detail pb-3 pe-3 ps-3 m-0">
                         <div class="row">
-                            <div class="col-lg-12 d-flex justify-content-between">
-                               
-                            </div>
+                            @if (session('success'))
+                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
+                            role="alert">
+                            <strong class="font-bold">Success!</strong>
+                            <span class="block sm:inline">{{ session('success') }}</span>
+                        </div>
+                    @endif
+
                             
                             <div class="m-6 col-lg-12">
                                {{ $event->title}}
@@ -113,9 +118,15 @@
                             </div>
                             <div class="col-lg-12 mt-3">
                                 <div class="row">
+                                    <form action="{{url('reserveTicket')}}/{{$event->id}}">
+                                    <div>
+                                        <input type="number" name="numberOfTickets" max="{{$event->available_places}}">
+                                    </div>
+                                    
                                     <div class="col-lg-6">
                                         <button type="submit" class="btn text-black bg-gray-200 btn-success w-100">Buy Ticket</button>
                                     </div>
+                                </form>
                                     <div class="container mt-4">
                                         <h5>Share it:</h5>
                                         <div
