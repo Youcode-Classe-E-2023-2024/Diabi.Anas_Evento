@@ -21,11 +21,6 @@ class StatisticsController extends Controller
         $reservations = Reservations::where('user_id', $userId)
         ->where('is_aprroved','=',false)
         ->get();
-        
-        
-
-
-
 
         if (Auth::check() && Auth::user()->role_id == 1) {
             $role = ['isAdmin' => true];
