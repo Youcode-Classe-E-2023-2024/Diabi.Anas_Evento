@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('place')->nullable();
             $table->string('price')->nullable();
+            $table->string('method')->nullable()->default('A');
             $table->string('status')->nullable()->default('archived');
             $table->string('categorie_id')->nullable();
             $table->integer('available_places')->nullable();
