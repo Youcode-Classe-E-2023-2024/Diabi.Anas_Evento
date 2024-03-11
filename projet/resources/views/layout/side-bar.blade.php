@@ -95,13 +95,7 @@
 
         @if (Auth::check())
             <!-- User is logged in -->
-            <li class="{{ $black_hover == 'Profile' ? 'black_hover' : '' }}">
-                <a href="#">
-                    <span class="icona">
-                    </span>
-                    <span class="title">Profile</span>
-                </a>
-            </li>
+            
 
             <li class="{{ $black_hover == 'Sign Out' ? 'black_hover' : '' }}">
                 <a href="{{ route('logout') }}">
