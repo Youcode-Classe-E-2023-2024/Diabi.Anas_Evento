@@ -9,6 +9,8 @@ use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\OrganizerSubController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\StatisticsController;
+use Illuminate\Support\Facades\Auth;
+
 
 
 
@@ -76,10 +78,6 @@ Route::put('/manageUsers/{userId}/updateRole', [AdminUserController::class, 'upd
 Route::get('/manageUsers/{userId}/editRole', [AdminUserController::class, 'editRole'])->name('manageUsers.editRole');
 
 
-Route::get('statistics',function (){
-    $black_hover = 'statistics';
-    return view('statistics',compact('black_hover'));
-})->name('statistics');
 
 Route::get('statistics', [StatisticsController::class, 'index'])->name('statistics');
 
@@ -100,5 +98,6 @@ Route::get('/publish.event/{event_id}', [EventsController::class, 'publish'])->n
 Route::post('/update/{event_id}/event', [EventsController::class, 'update'])->name('update.event')->middleware('auth');
 Route::get('events/{event_id}',[EventsController::class, 'details'])->name('event.details');
 Route::get('drop/{event_id}/event',[EventsController::class, 'delete'])->name('drop.event');
+Route::get('approve/{event_id}/event',[statisticsController::class, 'approve'])->name('approve.event');
 Route::get('reserveTicket/{event_id}',[EventsController::class, 'reserveTickets'])->name('reserveTicket');
 Route::get('/search',[EventsController::class,'searchEvent'])->name('searchEvent');

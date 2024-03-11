@@ -52,4 +52,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function events()
+    {
+        return $this->belongsToMany(Events::class, 'reservations', 'user_id', 'event_id');
+    }
+       
 }

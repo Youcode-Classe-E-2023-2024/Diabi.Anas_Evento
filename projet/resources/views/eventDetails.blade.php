@@ -1,12 +1,13 @@
 @extends('layout.layout')
 @section('content')
     <style>
-         .event-description {
-        font-size: 16px;
-        line-height: 1.6;
-        color: #333;
-        margin-top: 10px;
-    }
+        .event-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            margin-top: 10px;
+        }
+
         img {
             display: block;
             height: auto;
@@ -79,33 +80,43 @@
                     <div class="right-side-pro-detail pb-3 pe-3 ps-3 m-0">
                         <div class="row">
                             @if (session('success'))
-                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
-                            role="alert">
-                            <strong class="font-bold">Success!</strong>
-                            <span class="block sm:inline">{{ session('success') }}</span>
-                        </div>
-                    @endif
+                                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
+                                    role="alert">
+                                    <strong class="font-bold">Success!</strong>
+                                    <span class="block sm:inline">{{ session('success') }}</span>
+                                </div>
+                                @elseif (session('info'))
+                                <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative"
+                                    role="alert">
+                                    <strong class="font-bold">!</strong>
+                                    <span class="block sm:inline">{{ session('info') }}</span>
+                                </div>
+                            @endif
 
-                            
+
                             <div class="m-6 col-lg-12">
-                               {{ $event->title}}
+                                <strong >    {{ $event->title }}
+
+                                </strong>
                             </div>
                             <div class="col-lg-12  pb-0 mb-5">
-                                <p class="card-price mb-0">$.{{$event->price}}</p>
+                                <p class="card-price mb-0">$.{{ $event->price }}</p>
                                 <hr>
                             </div>
                             <div class="col-lg-12">
                                 <h5 class="text-primary">Event Details</h5>
-                                <p class="event-description">{{$event->description}}</p>
+                                <p class="event-description">{{ $event->description }}</p>
                                 <hr class="m-0 pt-1 mt-2">
                             </div>
                             <div class="col-lg-12 mt-2">
                                 <strong>Location : <i class="fa fa-map-marker-alt text-primary"></i>
                                 </strong>
-                                {{$event->place}}
+                                {{ $event->place }}
                             </div>
                             <div class="col-lg-12">
-                                {{$event->price}}
+                                <strong>Method :
+                                </strong>
+                                {{ $event->method }}
                             </div>
                             <div class="col-lg-12">
                                 <strong>Starting at : </strong>
@@ -114,24 +125,31 @@
                             <div class="col-lg-12 mt-2">
                                 <strong>Available Tickets :
                                 </strong>
-                                {{$event->available_places}}
+                                {{ $event->available_places }}
                             </div>
                             <div class="col-lg-12 mt-3">
                                 <div class="row">
-                                    <form action="{{url('reserveTicket')}}/{{$event->id}}">
-                                    <div>
-                                        <input type="number" name="numberOfTickets" max="{{$event->available_places}}">
-                                    </div>
-                                    
-                                    <div class="col-lg-6">
-                                        <button type="submit" class="btn text-black bg-gray-200 btn-success w-100">Buy Ticket</button>
-                                    </div>
-                                </form>
+                                    <h1 class="font-bold">N°:</h1>
+                                    <form action="{{ url('reserveTicket') }}/{{ $event->id }}">
+                                        @csrf
+                                        <div>
+                                            <input type="number" class="border-2 my-2" name="numberOfTickets"
+                                                max="{{ $event->available_places }}">
+                                        </div>
+                                        @error('numberOfTickets')
+                                            <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                        @enderror
+
+                                        <div class="col-lg-6">
+                                            <button type="submit" class="btn text-black bg-gray-200 btn-success w-100">Buy
+                                                Ticket</button>
+                                        </div>
+                                    </form>
                                     <div class="container mt-4">
                                         <h5>Share it:</h5>
                                         <div
                                             class="bg-dark rounded mb-2 p-1 mt-2 d-flex align-items-center justify-content-around">
-                                            
+
                                             <a class="btn btn-square mx-1 text-white border m-2" href=""><i
                                                     class="fab fa-facebook-f"></i></a>
                                             <a class="btn btn-square mx-1 text-white border m-2" href=""><i

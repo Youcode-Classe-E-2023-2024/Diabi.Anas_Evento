@@ -85,6 +85,18 @@ style="background:url('eventwlp.png') no-repeat center center fixed; background-
                                     <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <div>
+                                <label for="category"
+                                    class="block text-gray-600 text-sm font-medium">Method</label>
+                                    <select id="method"  name="method" class="mt-1 p-2 w-full border rounded-md">
+                                        <option value="">Reservation Method</option>
+                                        <option value="A">auto</option>
+                                        <option value="M">Manuel</option>
+                                    </select>
+                                    @error('method')
+                                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="grid grid-cols-2 gap-4 mb-4">

@@ -38,6 +38,7 @@
                                         @enderror
                                     </div>
 
+
                                     <div class="mb-4">
                                         <label for="description"
                                             class="block text-gray-600 text-sm font-medium">Description</label>
@@ -92,6 +93,18 @@
                                                 @endforeach
                                             </select>
                                             @error('category')
+                                                <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div>
+                                            <label for="category"
+                                                class="block text-gray-600 text-sm font-medium">Method</label>
+                                                <select id="method"  name="method" class="mt-1 p-2 w-full border rounded-md">
+                                                    <option value="">Reservation Method</option>
+                                                    <option value="A">auto</option>
+                                                    <option value="M">Manuel</option>
+                                                </select>
+                                                @error('method')
                                                 <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -155,7 +168,8 @@
                                 Available Places</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Ctegorie</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Start
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Start
                                 Date</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">End
                                 Date</th>

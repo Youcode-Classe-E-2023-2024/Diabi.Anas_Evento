@@ -16,4 +16,14 @@ class Events extends Model
     {
         return $this->belongsTo(Categorie::class, 'categorie_id');
     }
+
+    public function reservations()
+    {
+        return $this->hasMany(reservations::class, 'event_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'reservations', 'event_id', 'user_id');
+    }
 }

@@ -11,15 +11,15 @@
         </li>
 
         @php
-        if (Auth::check()) {
-            $user = Auth::user();
-        }
-    @endphp
-    <h6 class="">Welcom :             {{ $user->name }}
-    </h6>
-    <h6 >Role :                         {{ \App\Models\role::find($user->role_id)->name }}
+            if (Auth::check()) {
+                $user = Auth::user();
+            }
+        @endphp
+        <h6 class="">Welcom : {{ $user->name }}
+        </h6>
+        <h6>Role : {{ \App\Models\role::find($user->role_id)->name }}
 
-    </h6>
+        </h6>
         <li class="{{ $black_hover == 'home' ? 'black_hover' : '' }}">
             <a href="{{ route('main') }}">
                 <span class="icons">
@@ -59,29 +59,30 @@
                 </a>
             </li>
             <!-- Rest of the elements -->
-           
         @endif
 
         @if (Auth::check() && $userRole && $userRole->id === 1)
-            <!-- Ces éléments ne seront affichés que pour les Administrateurs -->
-            <li class="{{ $black_hover == 'Manage categories' ? 'black_hover' : '' }}">
-                <a href="{{ route('managecategorie') }}">
-                    <span class="icona">
-                    </span>
-                    <span class="title">Manage categories</span>
-                </a>
-            </li>
-            <!-- Rest of the elements -->
+         <!-- Ces éléments ne seront affichés que pour les Administrateurs -->
+         <li class="{{ $black_hover == 'Manage categories' ? 'black_hover' : '' }}">
+            <a href="{{ route('managecategorie') }}">
+                <span class="icona">
+                </span>
+                <span class="title">Manage categories</span>
+            </a>
+        </li>
+        <!-- Rest of the elements -->
 
-            
 
-            <li class="{{ $black_hover == 'Manage users' ? 'black_hover' : '' }}">
-                <a href="{{ route('manageUsers') }}">
-                    <span class="icona">
-                    </span>
-                    <span class="title">Manage users</span>
-                </a>
-            </li>
+
+        <li class="{{ $black_hover == 'Manage users' ? 'black_hover' : '' }}">
+            <a href="{{ route('manageUsers') }}">
+                <span class="icona">
+                </span>
+                <span class="title">Manage users</span>
+            </a>
+        </li>
+        @elseif (Auth::check() && $userRole && $userRole->id === 1 || $userRole->id === 2)
+           
             <li class="{{ $black_hover == 'statistics' ? 'black_hover' : '' }}">
                 <a href="{{ route('statistics') }}">
                     <span class="icona">
@@ -91,11 +92,12 @@
             </li>
 
             <!-- Ajoutez d'autres fonctionnalités spécifiques aux Administrateurs ici -->
+        
         @endif
 
         @if (Auth::check())
             <!-- User is logged in -->
-            
+
 
             <li class="{{ $black_hover == 'Sign Out' ? 'black_hover' : '' }}">
                 <a href="{{ route('logout') }}">
@@ -109,7 +111,7 @@
             <!-- User is not logged in -->
             <li class="{{ $black_hover == 'Login/Register' ? 'black_hover' : '' }}">
                 <a href="{{ route('login') }}">
-                   
+
                     <span class="title">Login</span>
                 </a>
             </li>

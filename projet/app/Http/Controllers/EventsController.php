@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Events;
+use App\Models\reservations;
 use App\Models\categorie;
 use Illuminate\Support\Facades\Auth;
 
@@ -47,22 +48,54 @@ class EventsController extends Controller
         $data = compact('events', 'black_hover');
         return view('reserve')->with($data);
     }
-    public function reserveTickets(Request $request, $eventId) {
+    public function reserveTickets(Request $request, $eventId)
+    {
+
+        $validated = request()->validate([
+            'numberOfTickets' => 'required'
+        ]);
 
         $event = Events::findOrFail($eventId);
-        
+        $user_id = $event->user_id;
+        $reserv = new reservations();
+
         $numberOfTickets = $request->numberOfTickets;
         // Check if there are enough available places
         if ($event->available_places >= $numberOfTickets) {
-            // Reduce the available places
-            $event->available_places -= $numberOfTickets;
-            $event->save();
+            if ($event->method == 'A') {
+                // Reduce the available places
+                $event->available_places -= $numberOfTickets;
+                $event->save();
                 
-             return redirect()->back()->with('success', 'Ticket Reserved successfully!');
-        } else {
-            return "Not enough available places to reserve tickets.";
-        }
+                $reserv->tickets = $numberOfTickets ;
+                $reserv->user_id = $user_id ;
+                $reserv->event_id = $eventId ;
+                $reserv->is_aprroved = 1 ;
+                $reserv->save();
+
+                return redirect()->back()->with('success', 'Ticket Reserved successfully!');
+            } elseif ($event->method == 'M') {
+
+               
+
+                $event->available_places -= $numberOfTickets;
+                $event->save();
+
+                $reserv->user_id = $user_id ;
+                $reserv->event_id = $eventId ;
+                $reserv->tickets = $numberOfTickets ;
+                $reserv->save();
+                return redirect()->back()->with('info', 'Your booking request has been submitted. Please wait for confirmation.');
+                
+
+            }
+        } 
     }
+
+
+
+
+
 
     public function create(Request $request)
     {
@@ -70,13 +103,15 @@ class EventsController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
+            'method' => 'required',
             'startDate' => 'required|date',
             'endDate' => 'required|date|after_or_equal:startDate',
             'guestCapacity' => 'required|integer|min:1',
-            'category' => 'required', // Assuming category is required
+            'category' => 'required',
+            'place' => 'required',
+            'price' => 'required',
         ]);
 
-        // Store the uploaded image
         // Retrieve the authenticated user's ID
         $user_id = Auth::id();
         // Create the event
@@ -84,9 +119,10 @@ class EventsController extends Controller
         $event->user_id = $user_id;
         $event->title = $request->title;
         $event->description = $request->description;
-        $event->place = $request->place; // Assuming place is also part of the request
-        $event->price = $request->price; // Assuming price is also part of the request
-        $event->categorie_id = $request->category; // Assuming category is also part of the request
+        $event->place = $request->place;
+        $event->price = $request->price;
+        $event->method = ($request->method == 'auto') ? 'A' : 'M';
+        $event->categorie_id = $request->category;
         $event->available_places = $request->guestCapacity;
         $event->start_date = $request->startDate;
         $event->end_date = $request->endDate;
@@ -120,15 +156,19 @@ class EventsController extends Controller
             'startDate' => 'required|date',
             'endDate' => 'required|date|after_or_equal:startDate',
             'guestCapacity' => 'required|integer|min:1',
-            'category' => 'required', // Assuming category is required
+            'category' => 'required',
+            'place' => 'required',
+            'method' => 'required',
+            'price' => 'required',
         ]);
 
 
         $event->title = $request->title;
         $event->description = $request->description;
-        $event->place = $request->place; // Assuming place is also part of the request
-        $event->price = $request->price; // Assuming price is also part of the request
-        $event->categorie_id = $request->category; // Assuming category is also part of the request
+        $event->place = $request->place;
+        $event->price = $request->price;
+        $event->method = $request->method;
+        $event->categorie_id = $request->category;
         $event->available_places = $request->guestCapacity;
         $event->start_date = $request->startDate;
         $event->end_date = $request->endDate;
@@ -154,7 +194,7 @@ class EventsController extends Controller
         } else {
             $newStatus = 'published';
         }
-        
+
         // Update the status
         $event->status = $newStatus;
         $event->save();
@@ -162,16 +202,16 @@ class EventsController extends Controller
         return redirect()->route('manageEvents')->with('deleted', 'Event has been Published.');
     }
     public function searchEvent(Request $request)
-{
-    $search = $request->input('search');
-    
-    $black_hover = 'Reserve a ticket';
+    {
+        $search = $request->input('search');
+
+        $black_hover = 'Reserve a ticket';
 
 
-    
-    // Utilisez la méthode where pour filtrer les événements par titre
-    $events = Events::where('title', 'like', '%' . $search . '%')->get();
 
-    return view('reserve', compact('black_hover', 'events'));
-}
+        // Utilisez la méthode where pour filtrer les événements par titre
+        $events = Events::where('title', 'like', '%' . $search . '%')->get();
+
+        return view('reserve', compact('black_hover', 'events'));
+    }
 }
